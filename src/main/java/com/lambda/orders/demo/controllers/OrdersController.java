@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -23,6 +24,12 @@ public class OrdersController {
     public ResponseEntity<?> findOrderById(@PathVariable long ordnum) {
         Order order = orderServices.findOrderById(ordnum);
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all", produces = "application/json")
+    public ResponseEntity<?> findAllOrders() {
+        List<Order> orders = orderServices.findAllOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @PostMapping(value = "/order", consumes = "application/json")

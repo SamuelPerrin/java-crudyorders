@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
@@ -24,7 +26,6 @@ public class OrderServicesImpl implements OrderServices {
     private CustomersRepository custrepos;
 
     @Transactional
-
     @Override
     public Order save(Order order) {
         Order newOrder = new Order();
@@ -53,6 +54,13 @@ public class OrderServicesImpl implements OrderServices {
         }
 
         return ordersRepository.save(newOrder);
+    }
+
+    public List<Order> findAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        ordersRepository.findAll().iterator().forEachRemaining(orders::add);
+
+        return orders;
     }
 
     @Override
