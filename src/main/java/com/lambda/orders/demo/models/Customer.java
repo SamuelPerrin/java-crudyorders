@@ -1,11 +1,18 @@
 package com.lambda.orders.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
+@JsonIgnoreProperties(value = {
+        "hasvalueforreceiveamt",
+        "hasvalueforopeningamt",
+        "hasvalueforoutstandingamt",
+        "hasvalueforpaymentamt"}, allowSetters = true)
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,10 +25,26 @@ public class Customer {
     private String custname;
     private String grade;
     private double openingamt;
+
+    @Transient
+    public boolean hasvalueforopeningamt = false;
+
     private double outstandingamt;
+
+    @Transient
+    public boolean hasvalueforoutstandingamt = false;
+
     private double paymentamt;
+
+    @Transient
+    public boolean hasvalueforpaymentamt = false;
+
     private String phone;
     private double receiveamt;
+
+    @Transient
+    public boolean hasvalueforreceiveamt = false;
+
     private String workingarea;
 
     @ManyToOne
@@ -104,6 +127,7 @@ public class Customer {
     }
 
     public void setOpeningamt(double openingamt) {
+        hasvalueforopeningamt = true;
         this.openingamt = openingamt;
     }
 
@@ -112,6 +136,7 @@ public class Customer {
     }
 
     public void setOutstandingamt(double outstandingamt) {
+        hasvalueforoutstandingamt = true;
         this.outstandingamt = outstandingamt;
     }
 
@@ -120,6 +145,7 @@ public class Customer {
     }
 
     public void setPaymentamt(double paymentamt) {
+        hasvalueforpaymentamt = true;
         this.paymentamt = paymentamt;
     }
 
@@ -136,6 +162,7 @@ public class Customer {
     }
 
     public void setReceiveamt(double receiveamt) {
+        hasvalueforreceiveamt = true;
         this.receiveamt = receiveamt;
     }
 
