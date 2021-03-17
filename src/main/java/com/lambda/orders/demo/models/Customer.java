@@ -80,6 +80,7 @@ public class Customer {
         this.phone = phone;
         this.receiveamt = receiveamt;
         this.workingarea = workingarea;
+        this.agent = agent;
     }
 
     public long getCustcode() {
@@ -180,5 +181,13 @@ public class Customer {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 }

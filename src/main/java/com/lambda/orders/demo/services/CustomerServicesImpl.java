@@ -40,6 +40,7 @@ public class CustomerServicesImpl implements CustomerServices {
         newCustomer.setPhone(customer.getPhone());
         newCustomer.setReceiveamt(customer.getReceiveamt());
         newCustomer.setWorkingarea(customer.getWorkingarea());
+        newCustomer.setAgent(customer.getAgent());
 
         newCustomer.getOrders().clear();
         for (Order o : customer.getOrders()) {
