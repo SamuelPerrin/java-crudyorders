@@ -8,16 +8,25 @@ import java.util.Set;
 
 @Entity
 @Table(name = "orders")
+@JsonIgnoreProperties(value = {"hasvalueforordamount", "hasvalueforadvanceamount"}, allowSetters = true)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ordnum;
 
     private double ordamount;
+
+    @Transient
+    public boolean hasvalueforordamount = false;
+
     private double advanceamount;
+
+    @Transient
+    public boolean hasvalueforadvanceamount = false;
 
     @ManyToOne
     @JoinColumn(name = "custcode", nullable = false)
+    @JsonIgnoreProperties(value = "orders", allowSetters = true)
     private Customer customer;
 
     private String orderdescription;
@@ -40,7 +49,6 @@ public class Order {
         this.advanceamount = advanceamount;
         this.customer = customer;
         this.orderdescription = orderdescription;
-        this.payments = payments;
     }
 
     public long getOrdnum() {
@@ -56,6 +64,7 @@ public class Order {
     }
 
     public void setAdvanceamount(double advanceamount) {
+        hasvalueforadvanceamount = true;
         this.advanceamount = advanceamount;
     }
 
@@ -64,6 +73,7 @@ public class Order {
     }
 
     public void setOrdamount(double ordamount) {
+        hasvalueforordamount = true;
         this.ordamount = ordamount;
     }
 
@@ -81,5 +91,13 @@ public class Order {
 
     public void setPayments(Set<Payment> payments) {
         this.payments = payments;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
